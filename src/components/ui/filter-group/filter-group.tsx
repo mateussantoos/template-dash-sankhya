@@ -21,7 +21,7 @@ export const FilterGroup: React.FC<FilterGroupProps> = ({
 }) => {
   return (
     <div className={`flex flex-col gap-1 ${width}`}>
-      <label className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+      <label className="text-sm font-semibold text-gray-700 flex gap-2">
         {label}
         {tooltipText && <InfoTooltip text={tooltipText} />}
       </label>

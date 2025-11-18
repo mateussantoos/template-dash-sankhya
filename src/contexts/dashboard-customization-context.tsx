@@ -80,15 +80,26 @@ export const DashboardCustomizationProvider: React.FC<
       storageRef.current[gridId] = options?.storageKey ?? gridId;
 
       setLayouts((prev) => {
+        // Se já existe layout salvo, mantém ele
         if (prev[gridId]) {
           return prev;
         }
 
+        // Tenta carregar do storage
         const persisted = readFromStorage(storageRef.current[gridId]);
         if (persisted) {
-          return { ...prev, [gridId]: persisted };
+          // Mescla layouts persistidos com novos items (caso novos items sejam adicionados)
+          const mergedLayouts: Layouts = {};
+          Object.keys(persisted).forEach((breakpoint) => {
+            mergedLayouts[breakpoint] = persisted[breakpoint].map((savedItem) => {
+              // Mantém item salvo se ainda existe
+              return savedItem;
+            });
+          });
+          return { ...prev, [gridId]: mergedLayouts };
         }
 
+        // Usa defaults se não há nada salvo
         return { ...prev, [gridId]: defaultLayouts };
       });
     },

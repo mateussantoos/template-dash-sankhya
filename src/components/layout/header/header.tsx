@@ -61,7 +61,7 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Actions Area (Buttons) */}
         {(actionsSlot || (enableCustomizationToggle && customization)) && (
-          <div className="flex flex-wrap items-center gap-3 w-full md:w-auto justify-start md:justify-end">
+          <div className="flex flex-wrap items-center gap-3 w-full md:w-auto justify-start md:justify-end ">
             {actionsSlot}
             {renderCustomizationButton()}
           </div>

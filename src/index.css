@@ -1,1 +1,42 @@
 @import "tailwindcss";
+
+/* Garantir que o react-grid-layout funcione corretamente */
+.react-grid-layout {
+  position: relative !important;
+}
+
+.react-grid-item {
+  position: absolute !important;
+  transition: all 200ms ease;
+  transition-property: left, top, width, height;
+  /* Garante que o conteúdo não fique espremido */
+  min-height: 0;
+  overflow: visible;
+}
+
+.react-grid-item.cssTransforms {
+  transition-property: transform, width, height;
+}
+
+.react-grid-item > .react-resizable-handle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+}
+
+.react-grid-item.react-draggable-dragging {
+  transition: none;
+  z-index: 3;
+}
+
+.react-grid-item.dropping {
+  visibility: hidden;
+}
+
+.react-grid-item.react-grid-placeholder {
+  background: rgb(59 130 246 / 0.2);
+  opacity: 0.2;
+  transition-duration: 100ms;
+  z-index: 2;
+  user-select: none;
+}

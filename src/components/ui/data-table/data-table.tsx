@@ -51,6 +51,10 @@ interface DataTableProps<T> {
   initialPage?: number;
   onPageChange?: (page: number) => void;
   pageSizeOptions?: number[];
+  manualPagination?: boolean;
+  totalItems?: number;
+  externalPage?: number;
+  loading?: boolean;
 }
 
 /**
@@ -71,6 +75,9 @@ export const DataTable = <T extends { id: string | number }>({
   initialPage = 0,
   onPageChange,
   pageSizeOptions = [5, 10, 20, 50],
+  manualPagination = false,
+  totalItems: totalItemsProp,
+  externalPage,
 }: DataTableProps<T>) => {
   type SortDirection = "asc" | "desc";
 
@@ -126,6 +133,12 @@ export const DataTable = <T extends { id: string | number }>({
     setCurrentPage(initialPage);
     onPageChange?.(initialPage);
   }, [initialPage, onPageChange]);
+
+  useEffect(() => {
+    if (externalPage !== undefined) {
+      setCurrentPage(externalPage);
+    }
+  }, [externalPage]);
 
   const columnsToSearch = useMemo(() => {
     if (searchableColumns && searchableColumns.length > 0) {
@@ -205,7 +218,9 @@ export const DataTable = <T extends { id: string | number }>({
     return [...filteredData].sort(compare);
   }, [filteredData, sortConfig]);
 
-  const totalItems = sortedData.length;
+  const totalItems = manualPagination
+    ? totalItemsProp ?? sortedData.length
+    : sortedData.length;
   const totalPages = Math.max(1, Math.ceil(totalItems / effectivePageSize));
 
   useEffect(() => {
@@ -219,9 +234,12 @@ export const DataTable = <T extends { id: string | number }>({
   }, [totalPages, onPageChange]);
 
   const paginatedData = useMemo(() => {
+    if (manualPagination) {
+      return sortedData;
+    }
     const start = currentPage * effectivePageSize;
     return sortedData.slice(start, start + effectivePageSize);
-  }, [sortedData, currentPage, effectivePageSize]);
+  }, [sortedData, currentPage, effectivePageSize, manualPagination]);
 
   const startItem = totalItems === 0 ? 0 : currentPage * effectivePageSize + 1;
   const endItem = Math.min((currentPage + 1) * effectivePageSize, totalItems);
