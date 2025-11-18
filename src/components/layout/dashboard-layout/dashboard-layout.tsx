@@ -38,7 +38,6 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 }) => {
   const mergedHeaderProps: HeaderProps = {
     title: "Dashboard",
-    enableCustomizationToggle: false,
     ...headerProps,
   };
 

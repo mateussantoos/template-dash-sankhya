@@ -1,8 +1,5 @@
 import React from "react";
 import { InfoTooltip } from "@/components/ui/info-tooltip/info-tooltip";
-import { Button } from "@/components/ui/button/button";
-import { useOptionalDashboardCustomization } from "@/contexts/dashboard-customization-context";
-import { FaGripVertical, FaSquareCheck } from "react-icons/fa6";
 
 // Defines the properties for the Header component
 export interface HeaderProps {
@@ -11,7 +8,6 @@ export interface HeaderProps {
   actionsSlot?: React.ReactNode;
   filtersSlot?: React.ReactNode;
   className?: string;
-  enableCustomizationToggle?: boolean;
 }
 
 /**
@@ -23,30 +19,7 @@ export const Header: React.FC<HeaderProps> = ({
   actionsSlot,
   filtersSlot,
   className = "",
-  enableCustomizationToggle = false,
 }) => {
-  const customization = useOptionalDashboardCustomization();
-
-  const renderCustomizationButton = () => {
-    if (!enableCustomizationToggle || !customization) {
-      return null;
-    }
-
-    return (
-      <Button
-        variant={customization.isCustomizing ? "dark" : "outline"}
-        icon={customization.isCustomizing ? FaSquareCheck : FaGripVertical}
-        text={
-          customization.isCustomizing
-            ? "Sair do modo edição"
-            : "Personalizar Dashboard"
-        }
-        onClick={customization.toggleCustomization}
-        className="whitespace-nowrap"
-      />
-    );
-  };
-
   return (
     <header
       className={`bg-white border-b border-gray-200 p-6 shadow-sm z-[100px] relative ${className}`}
@@ -60,10 +33,9 @@ export const Header: React.FC<HeaderProps> = ({
         </h1>
 
         {/* Actions Area (Buttons) */}
-        {(actionsSlot || (enableCustomizationToggle && customization)) && (
+        {actionsSlot && (
           <div className="flex flex-wrap items-center gap-3 w-full md:w-auto justify-start md:justify-end ">
             {actionsSlot}
-            {renderCustomizationButton()}
           </div>
         )}
       </div>
