@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Header, type HeaderProps } from "@/components/layout/header/header";
 import {
@@ -7,6 +7,10 @@ import {
 } from "@/components/layout/side-bar/side-bar";
 import { FaChartLine, FaGear, FaHouse } from "react-icons/fa6";
 import { cn } from "@/utils/use-cn";
+import {
+  DashboardLayoutProvider,
+  type DashboardLayoutContextValue,
+} from "@/contexts/dashboard-layout-context";
 
 interface DashboardLayoutProps {
   className?: string;
@@ -14,6 +18,7 @@ interface DashboardLayoutProps {
   sideBarItems?: SideBarItem[];
   sideBarIcon?: React.ReactNode;
   sideBarTitle?: string;
+  filtersSlot?: React.ReactNode;
 }
 
 const defaultSideBarItems: SideBarItem[] = [
@@ -32,15 +37,39 @@ const defaultSideBarItems: SideBarItem[] = [
 
 export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   className,
-  headerProps,
+  headerProps: initialHeaderProps,
+  filtersSlot: initialFiltersSlot,
   sideBarItems = defaultSideBarItems,
   sideBarIcon = <FaChartLine className="h-4 w-4" />,
   sideBarTitle = "Dashboard",
 }) => {
-  const mergedHeaderProps: HeaderProps = {
+  const [currentHeaderProps, setCurrentHeaderProps] = useState<HeaderProps>({
     title: "Home",
-    ...headerProps,
-  };
+    ...initialHeaderProps,
+  });
+  const [currentFiltersSlot, setCurrentFiltersSlot] =
+    useState<React.ReactNode>(initialFiltersSlot);
+
+  useEffect(() => {
+    if (initialHeaderProps) {
+      setCurrentHeaderProps((prev) => ({ ...prev, ...initialHeaderProps }));
+    }
+  }, [initialHeaderProps]);
+
+  useEffect(() => {
+    if (initialFiltersSlot !== undefined) {
+      setCurrentFiltersSlot(initialFiltersSlot);
+    }
+  }, [initialFiltersSlot]);
+
+  const contextValue = useMemo<DashboardLayoutContextValue>(
+    () => ({
+      setHeaderProps: (props) =>
+        setCurrentHeaderProps((prev) => ({ ...prev, ...props })),
+      setFiltersSlot: (slot) => setCurrentFiltersSlot(slot),
+    }),
+    []
+  );
 
   return (
     <main className="flex min-h-screen h-screen bg-gray-100">
@@ -50,9 +79,11 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         titleScreen={sideBarTitle}
       />
       <div className="flex min-w-0 flex-1 flex-col">
-        <Header {...mergedHeaderProps} />
+        <Header {...currentHeaderProps} filtersSlot={currentFiltersSlot} />
         <div className={cn("flex-1 overflow-y-auto p-4", className)}>
-          <Outlet />
+          <DashboardLayoutProvider value={contextValue}>
+            <Outlet />
+          </DashboardLayoutProvider>
         </div>
       </div>
     </main>

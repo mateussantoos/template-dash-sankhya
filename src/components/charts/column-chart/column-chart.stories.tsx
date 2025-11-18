@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { ColumnChart } from "./column-chat";
+import { ColumnChart } from "./column-chart";
 
 const meta: Meta<typeof ColumnChart> = {
   title: "Charts/ColumnChart",

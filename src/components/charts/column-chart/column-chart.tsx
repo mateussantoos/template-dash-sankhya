@@ -19,6 +19,7 @@ interface ColumnChartProps {
   color?: string;
   actionsSlot?: React.ReactNode;
   height?: string;
+  className?: string;
 }
 
 export const ColumnChart: React.FC<ColumnChartProps> = ({
@@ -29,8 +30,14 @@ export const ColumnChart: React.FC<ColumnChartProps> = ({
   color = "#0ea5e9",
   actionsSlot,
   height = "400px",
+  className,
 }) => (
-  <ChartCard title={title} actionsSlot={actionsSlot} chartHeight={height}>
+  <ChartCard
+    title={title}
+    actionsSlot={actionsSlot}
+    chartHeight={height}
+    className={className}
+  >
     <ResponsiveContainer width="100%" height="100%">
       <BarChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />

@@ -19,6 +19,7 @@ interface AreaChartProps {
   gradientId?: string;
   actionsSlot?: React.ReactNode;
   height?: string;
+  className?: string;
 }
 
 export const AreaChartCard: React.FC<AreaChartProps> = ({
@@ -30,8 +31,14 @@ export const AreaChartCard: React.FC<AreaChartProps> = ({
   gradientId = "areaGradient",
   actionsSlot,
   height = "400px",
+  className,
 }) => (
-  <ChartCard title={title} actionsSlot={actionsSlot} chartHeight={height}>
+  <ChartCard
+    title={title}
+    actionsSlot={actionsSlot}
+    chartHeight={height}
+    className={className}
+  >
     <ResponsiveContainer width="100%" height="100%">
       <AreaChart data={data}>
         <defs>

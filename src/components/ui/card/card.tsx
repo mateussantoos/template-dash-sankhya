@@ -26,7 +26,7 @@ export const Card: React.FC<CardProps> = ({
   skeletonClassName,
 }) => {
   const baseClasses =
-    "bg-white rounded-lg shadow-sm border border-gray-200 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5";
+    "bg-white rounded-lg shadow-sm border border-gray-200 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5 w-full";
 
   const skeletonContent =
     loadingVariant === "block" ? (

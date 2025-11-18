@@ -19,6 +19,7 @@ interface HorizontalBarChartProps {
   color?: string;
   actionsSlot?: React.ReactNode;
   height?: string;
+  className?: string;
 }
 
 export const HorizontalBarChart: React.FC<HorizontalBarChartProps> = ({
@@ -29,8 +30,14 @@ export const HorizontalBarChart: React.FC<HorizontalBarChartProps> = ({
   color = "#f59e0b",
   actionsSlot,
   height = "400px",
+  className,
 }) => (
-  <ChartCard title={title} actionsSlot={actionsSlot} chartHeight={height}>
+  <ChartCard
+    title={title}
+    actionsSlot={actionsSlot}
+    chartHeight={height}
+    className={className}
+  >
     <ResponsiveContainer width="100%" height="100%">
       <BarChart data={data} layout="vertical">
         <CartesianGrid strokeDasharray="3 3" />

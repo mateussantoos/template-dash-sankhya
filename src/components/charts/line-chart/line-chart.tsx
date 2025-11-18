@@ -20,6 +20,7 @@ interface LineChartProps {
   actionsSlot?: React.ReactNode;
   height?: string;
   showDots?: boolean;
+  className?: string;
 }
 
 export const LineChartCard: React.FC<LineChartProps> = ({
@@ -31,8 +32,14 @@ export const LineChartCard: React.FC<LineChartProps> = ({
   actionsSlot,
   height = "400px",
   showDots = true,
+  className,
 }) => (
-  <ChartCard title={title} actionsSlot={actionsSlot} chartHeight={height}>
+  <ChartCard
+    title={title}
+    actionsSlot={actionsSlot}
+    chartHeight={height}
+    className={className}
+  >
     <ResponsiveContainer width="100%" height="100%">
       <LineChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />

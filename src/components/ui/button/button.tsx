@@ -34,6 +34,7 @@ interface ActionButtonProps {
   isLoading?: boolean;
   className?: string;
   onClick: () => void;
+  ariaLabel?: string;
 }
 
 /**
@@ -49,6 +50,7 @@ export const Button: React.FC<ActionButtonProps> = ({
   isLoading = false,
   className = "",
   onClick,
+  ariaLabel,
 }) => {
   // Base styles shared by all buttons
   const baseStyles =
@@ -108,6 +110,8 @@ export const Button: React.FC<ActionButtonProps> = ({
       type="button"
       onClick={onClick}
       disabled={disabled || isLoading}
+      aria-label={ariaLabel}
+      title={ariaLabel}
       className={cn(
         baseStyles,
         showIcon && showText ? "gap-2" : "gap-0",

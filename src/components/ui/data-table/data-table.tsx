@@ -56,6 +56,7 @@ interface DataTableProps<T> {
   totalItems?: number;
   externalPage?: number;
   loading?: boolean;
+  className?: string;
 }
 
 /**
@@ -79,6 +80,7 @@ export const DataTable = <T extends { id: string | number }>({
   manualPagination = false,
   totalItems: totalItemsProp,
   externalPage,
+  className,
 }: DataTableProps<T>) => {
   type SortDirection = "asc" | "desc";
 
@@ -272,7 +274,8 @@ export const DataTable = <T extends { id: string | number }>({
   return (
     <div
       className={cn(
-        "bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden"
+        "bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden w-full",
+        className ?? ""
       )}
     >
       {/* Table Header */}

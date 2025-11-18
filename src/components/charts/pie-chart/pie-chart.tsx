@@ -19,6 +19,7 @@ interface PieChartProps {
   height?: string;
   innerRadius?: number;
   outerRadius?: number;
+  className?: string;
 }
 
 const defaultColors = ["#2563eb", "#f97316", "#10b981", "#e11d48", "#a855f7"];
@@ -33,8 +34,14 @@ export const PieChartCard: React.FC<PieChartProps> = ({
   height = "400px",
   innerRadius = 60,
   outerRadius = 90,
+  className,
 }) => (
-  <ChartCard title={title} actionsSlot={actionsSlot} chartHeight={height}>
+  <ChartCard
+    title={title}
+    actionsSlot={actionsSlot}
+    chartHeight={height}
+    className={className}
+  >
     <ResponsiveContainer width="100%" height="100%">
       <PieChart>
         <Tooltip />
