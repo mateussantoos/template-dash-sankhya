@@ -7,6 +7,7 @@ export interface SideBarItem {
   icon: React.ReactNode;
   onClick?: () => void;
   active?: boolean;
+  to?: string;
 }
 
 interface SideBarProps {
