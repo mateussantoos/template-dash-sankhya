@@ -16,6 +16,7 @@ import {
   FaChevronLeft,
   FaChevronRight,
 } from "react-icons/fa6";
+import { exportToExcel } from "@/utils/use-export-to-excel";
 
 /**
  * Defines the structure for a column in the data table.
@@ -308,7 +309,7 @@ export const DataTable = <T extends { id: string | number }>({
             text="Exportar Excel"
             variant="outline"
             className="text-gray-600"
-            onClick={() => {}}
+            onClick={() => exportToExcel(sortedData, title)}
           />
         </div>
       </div>
