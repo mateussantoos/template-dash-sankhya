@@ -40,3 +40,35 @@
   z-index: 2;
   user-select: none;
 }
+
+/* Recharts tooltip styles */
+
+.recharts-tooltip-wrapper {
+  padding: 8px !important;
+  border-radius: 12px;
+  backdrop-filter: blur(20px);
+  background: rgba(15, 23, 42, 0.85);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.35);
+  color: #fff;
+}
+
+.recharts-default-tooltip {
+  border: none !important;
+  border-radius: 12px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.recharts-tooltip-label {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.recharts-tooltip-item-list {
+  margin: 0;
+}
+
+.recharts-tooltip-item {
+  padding: 0;
+  font-size: 0.85rem;
+}
