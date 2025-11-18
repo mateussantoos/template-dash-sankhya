@@ -7,7 +7,15 @@ export const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route element={<DashboardLayout />}>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={
+              <Home
+                title="Home"
+                infoTooltipText="Esta é a página inicial do dashboard"
+              />
+            }
+          />
         </Route>
       </Routes>
     </BrowserRouter>

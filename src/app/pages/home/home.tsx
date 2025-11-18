@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { KpiCard } from "@/components/ui/kpi-card/kpi-card";
 import { AreaChartCard } from "@/components/charts/area-chart/area-chart";
 import { ColumnChart } from "@/components/charts/column-chart/column-chart";
@@ -14,8 +14,16 @@ type HomeFilters = {
   vendedor: string;
 };
 
-export const Home = () => {
-  const { setFiltersSlot, setHeaderProps } = useDashboardLayoutContext();
+interface HomeProps {
+  title?: string;
+  infoTooltipText?: string;
+}
+
+export const Home: React.FC<HomeProps> = ({
+  title = "Home",
+  infoTooltipText,
+}) => {
+  const { setFiltersSlot, setPageHeaderConfig } = useDashboardLayoutContext();
   const { filters, setFilter } = useFilter<HomeFilters>({
     categoria: "Todos",
     vendedor: "Todos",
@@ -46,9 +54,12 @@ export const Home = () => {
   const filterSlot = useMemo(
     () => (
       <div className="flex flex-wrap gap-4 w-full">
-        <FilterGroup label="Categoria">
+        <FilterGroup
+          label="Categoria"
+          tooltipText="Selecione a categoria do produto"
+        >
           <select
-            className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none"
+            className="bg-white w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none"
             value={filters.categoria}
             onChange={(event) => setFilter("categoria", event.target.value)}
           >
@@ -59,9 +70,9 @@ export const Home = () => {
             ))}
           </select>
         </FilterGroup>
-        <FilterGroup label="Vendedor">
+        <FilterGroup label="Vendedor" tooltipText="Selecione o vendedor">
           <select
-            className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none"
+            className="bg-white w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none"
             value={filters.vendedor}
             onChange={(event) => setFilter("vendedor", event.target.value)}
           >
@@ -78,8 +89,8 @@ export const Home = () => {
   );
 
   useEffect(() => {
-    setHeaderProps({ title: "Home" });
-  }, [setHeaderProps]);
+    setPageHeaderConfig({ title, infoTooltipText });
+  }, [title, infoTooltipText, setPageHeaderConfig]);
 
   useEffect(() => {
     setFiltersSlot(filterSlot);

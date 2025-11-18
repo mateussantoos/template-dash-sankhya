@@ -1,15 +1,22 @@
 import React from "react";
 import type { HeaderProps } from "@/components/layout/header/header";
 
+export interface PageHeaderConfig {
+  title?: string;
+  infoTooltipText?: string;
+}
+
 export interface DashboardLayoutContextValue {
   setHeaderProps: (props: Partial<HeaderProps>) => void;
   setFiltersSlot: (slot: React.ReactNode) => void;
+  setPageHeaderConfig: (config: PageHeaderConfig) => void;
 }
 
 export const DashboardLayoutContext =
   React.createContext<DashboardLayoutContextValue>({
     setHeaderProps: () => undefined,
     setFiltersSlot: () => undefined,
+    setPageHeaderConfig: () => undefined,
   });
 
 export const useDashboardLayoutContext = () => {
